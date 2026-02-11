@@ -15,3 +15,11 @@ docs/
 *.pyzz
 .venv/
 __pycache__/
+
+# GoMikroBot specific
+.gomikrobot/
+*.db
+*.db-shm
+*.db-wal
+config.json
+whatsapp-qr.png

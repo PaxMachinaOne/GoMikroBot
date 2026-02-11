@@ -97,10 +97,13 @@ type GatewayConfig struct {
 	Port          int    `json:"port" envconfig:"PORT"`
 	DashboardPort int    `json:"dashboardPort" envconfig:"DASHBOARD_PORT"`
 
+	// Optional API token for local-network API.
+	APIToken string `json:"apiToken,omitempty" envconfig:"API_TOKEN"`
+
 	// Enterprise hardening.
-	RateLimitRPS   float64       `json:"rateLimitRps" envconfig:"RATE_LIMIT_RPS"`
-	RateLimitBurst int           `json:"rateLimitBurst" envconfig:"RATE_LIMIT_BURST"`
-	MaxBodyBytes   int64         `json:"maxBodyBytes" envconfig:"MAX_BODY_BYTES"`
+	RateLimitRPS    float64       `json:"rateLimitRps" envconfig:"RATE_LIMIT_RPS"`
+	RateLimitBurst  int           `json:"rateLimitBurst" envconfig:"RATE_LIMIT_BURST"`
+	MaxBodyBytes    int64         `json:"maxBodyBytes" envconfig:"MAX_BODY_BYTES"`
 	ShutdownTimeout time.Duration `json:"shutdownTimeout" envconfig:"SHUTDOWN_TIMEOUT"`
 }
 
@@ -150,9 +153,9 @@ func DefaultConfig() *Config {
 			Host:           "127.0.0.1", // Secure default
 			Port:           18790,
 			DashboardPort:  18791,
-			RateLimitRPS:   5,           // 5 req/sec per client IP
-			RateLimitBurst: 10,          // allow short bursts
-			MaxBodyBytes:   10 << 20,    // 10 MiB
+			RateLimitRPS:   5,            // 5 req/sec per client IP
+			RateLimitBurst: 10,           // allow short bursts
+			MaxBodyBytes:   10 << 20,     // 10 MiB
 			ShutdownTimeout: 10 * time.Second, // graceful drain
 		},
 		Tools: ToolsConfig{
