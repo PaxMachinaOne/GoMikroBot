@@ -96,6 +96,7 @@ type GatewayConfig struct {
 	Host          string `json:"host" envconfig:"HOST"`
 	Port          int    `json:"port" envconfig:"PORT"`
 	DashboardPort int    `json:"dashboardPort" envconfig:"DASHBOARD_PORT"`
+	APIToken      string `json:"apiToken,omitempty" envconfig:"API_TOKEN"`
 }
 
 // ToolsConfig contains tool-specific settings.

@@ -10,8 +10,8 @@ import (
 func TestDefaultConfig(t *testing.T) {
 	cfg := DefaultConfig()
 
-	if cfg.Agents.Defaults.Model != "anthropic/claude-sonnet-4-5" {
-		t.Errorf("expected default model anthropic/claude-sonnet-4-5, got %s", cfg.Agents.Defaults.Model)
+	if cfg.Agents.Defaults.Model != "gpt-4o" {
+		t.Errorf("expected default model gpt-4o, got %s", cfg.Agents.Defaults.Model)
 	}
 
 	if cfg.Gateway.Host != "127.0.0.1" {
@@ -50,7 +50,7 @@ func TestLoadDefaults(t *testing.T) {
 func TestLoadFromFile(t *testing.T) {
 	// Create temp config
 	tmpDir := t.TempDir()
-	configDir := filepath.Join(tmpDir, ".nanobot")
+	configDir := filepath.Join(tmpDir, ".gomikrobot")
 	os.MkdirAll(configDir, 0755)
 	configFile := filepath.Join(configDir, "config.json")
 
@@ -88,11 +88,11 @@ func TestLoadFromFile(t *testing.T) {
 
 func TestEnvOverride(t *testing.T) {
 	// Set env var with correct prefix for nested struct
-	os.Setenv("NANOBOT_GATEWAY_HOST", "0.0.0.0")
-	os.Setenv("NANOBOT_GATEWAY_PORT", "8080")
+	os.Setenv("MIKROBOT_GATEWAY_HOST", "0.0.0.0")
+	os.Setenv("MIKROBOT_GATEWAY_PORT", "8080")
 	defer func() {
-		os.Unsetenv("NANOBOT_GATEWAY_HOST")
-		os.Unsetenv("NANOBOT_GATEWAY_PORT")
+		os.Unsetenv("MIKROBOT_GATEWAY_HOST")
+		os.Unsetenv("MIKROBOT_GATEWAY_PORT")
 	}()
 
 	// Use temp home with no config file

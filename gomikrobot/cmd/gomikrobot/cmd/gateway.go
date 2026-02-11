@@ -40,6 +40,10 @@ func runGateway(cmd *cobra.Command, args []string) {
 	msgBus := bus.NewMessageBus()
 
 	// 3. Setup Providers
+	if cfg.Providers.OpenAI.APIKey == "" {
+		fmt.Println("Error: API key not found. Set MIKROBOT_OPENAI_API_KEY, OPENAI_API_KEY, or OPENROUTER_API_KEY")
+		os.Exit(1)
+	}
 	oaProv := provider.NewOpenAIProvider(cfg.Providers.OpenAI.APIKey, cfg.Providers.OpenAI.APIBase, cfg.Agents.Defaults.Model)
 	var prov provider.LLMProvider = oaProv
 
@@ -94,6 +98,20 @@ func runGateway(cmd *cobra.Command, args []string) {
 				http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 				return
 			}
+
+			// Optional auth token for local-network API.
+			// If configured, require X-API-Token header or token query parameter.
+			if cfg.Gateway.APIToken != "" {
+				tok := r.Header.Get("X-API-Token")
+				if tok == "" {
+					tok = r.URL.Query().Get("token")
+				}
+				if tok != cfg.Gateway.APIToken {
+					http.Error(w, "Unauthorized", http.StatusUnauthorized)
+					return
+				}
+			}
+
 			msg := r.URL.Query().Get("message")
 			if msg == "" {
 				http.Error(w, "Missing message parameter", http.StatusBadRequest)

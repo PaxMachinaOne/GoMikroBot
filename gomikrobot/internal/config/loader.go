@@ -96,5 +96,7 @@ func Save(cfg *Config) error {
 
 // EnsureDir ensures a directory exists with proper permissions.
 func EnsureDir(path string) error {
-	return os.MkdirAll(path, 0755)
+	// Prefer private directories for anything that might hold credentials, tokens,
+	// chat transcripts, DBs, or media.
+	return os.MkdirAll(path, 0700)
 }
