@@ -295,7 +295,7 @@ func (c *WhatsAppChannel) eventHandler(evt interface{}) {
 		}
 
 		// Classify intent (for logging purposes only - no automatic responses)
-		category, _ := c.classifyMessage(context.Background(), content)
+		category, _ := c.classifyMessage(ctx, content)
 
 		// Log Inbound Event (with authorization status)
 		c.logEvent(v.Info.ID, sender, "TEXT", content, mediaPath, category, isAuthorized)
@@ -391,7 +391,7 @@ Output logic:
 `
 
 	resp, err := c.provider.Chat(ctx, &provider.ChatRequest{
-		Model: "gpt-4o",
+		Model: "",
 		Messages: []provider.Message{
 			{Role: "system", Content: sysPrompt},
 			{Role: "user", Content: content},

@@ -29,7 +29,7 @@ cd gomikrobot
 ### 2. Configure API Key
 The system now defaults to OpenAI.
 ```bash
-export OPENAI_API_KEY="sk-..."
+export OPENAI_API_KEY="<your_api_key>"
 ./gomikrobot agent -m "Hello"
 ```
 *Note: OpenRouter is also supported via `OPENROUTER_API_KEY`.*

@@ -86,9 +86,12 @@ type Manager struct {
 
 // NewManager creates a new session manager.
 func NewManager(workspace string) *Manager {
+	// Persist sessions under the app config dir by default.
+	// NOTE: We intentionally do NOT store session history in the workspace directory,
+	// because workspaces may be shared/synced and can contain sensitive conversational data.
 	home, _ := os.UserHomeDir()
-	sessionsDir := filepath.Join(home, ".nanobot", "sessions")
-	os.MkdirAll(sessionsDir, 0755)
+	sessionsDir := filepath.Join(home, ".gomikrobot", "sessions")
+	_ = os.MkdirAll(sessionsDir, 0700)
 
 	return &Manager{
 		sessionsDir: sessionsDir,
