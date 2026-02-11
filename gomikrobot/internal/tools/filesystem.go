@@ -96,13 +96,14 @@ func (t *WriteFileTool) Execute(ctx context.Context, params map[string]any) (str
 		path = filepath.Join(home, path[1:])
 	}
 
-	// Create parent directories
+	// Create parent directories (private by default)
 	dir := filepath.Dir(path)
-	if err := os.MkdirAll(dir, 0755); err != nil {
+	if err := os.MkdirAll(dir, 0700); err != nil {
 		return fmt.Sprintf("Error creating directory: %v", err), nil
 	}
 
-	if err := os.WriteFile(path, []byte(content), 0644); err != nil {
+	// Write files as user-private by default (agents may write sensitive content).
+	if err := os.WriteFile(path, []byte(content), 0600); err != nil {
 		if os.IsPermission(err) {
 			return fmt.Sprintf("Error: permission denied: %s", path), nil
 		}

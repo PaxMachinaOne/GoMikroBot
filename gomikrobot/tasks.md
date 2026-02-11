@@ -100,9 +100,9 @@ python -c "from nanobot.config.schema import Config; print(Config().model_dump_j
 **Python Source:** `nanobot/config/loader.py`
 
 **Acceptance Criteria:**
-- [ ] Load from `~/.nanobot/config.json`
+- [ ] Load from `~/.gomikrobot/config.json`
 - [ ] Create default if missing
-- [ ] Environment variable override (NANOBOT_ prefix)
+- [ ] Environment variable override (MIKROBOT_ prefix)
 
 **Implementation:**
 Create `gomikrobot/internal/config/loader.go`
