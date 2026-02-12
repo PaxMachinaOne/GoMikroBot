@@ -7,9 +7,9 @@
 
 ## Enterprise Hardening (2026-02)
 
-- PR (fork): https://github.com/PaxMachinaOne/GoMikroBot/pull/2 (branch `feature/enterprise-hardening-part2`, commit `13c3044`)
+- Fork PR (merged): https://github.com/PaxMachinaOne/GoMikroBot/pull/2 (squash merge commit `50308882e197487fd1fd5fabf3dcab7b1d0151f9`)
   - Adds HTTP middleware (rate limiting, panic recovery, body size limit), `/health` + `/ready`, and graceful shutdown.
-  - Intended upstream PR to `scalytics/GoMikroBot` pending token permissions.
+  - Upstream PR to `scalytics/GoMikroBot` pending GH token permissions (`createPullRequest`).
 
 ## Task Structure
 
